@@ -2,7 +2,7 @@
 
 This is a server that lets users convert any RSS feed to an ActivityPub actor that can be followed by users on ActivityPub-compliant social networks like Mastodon.
 
-This is based on my [Express ActivityPub Server](https://github.com/dariusk/express-activitypub), a simple Node/Express server that supports a subset of ActivityPub.
+This is forked from Daius's [rss-to-activitypub](https://github.com/dariusk/rss-to-activitypub), a simple Node/Express server that bridges between RSS and ActivityPub, and his [Express ActivityPub Server](https://github.com/dariusk/express-activitypub), a simple Node/Express server that supports a subset of ActivityPub.
 
 ## Requirements
 
