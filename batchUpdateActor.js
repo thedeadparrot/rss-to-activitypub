@@ -44,7 +44,7 @@ return new Promise((resolve, reject) => {
       }
       // otherwise parse the HTML for the favicon
       else {
-        let favUrl = new URL(feed);
+        let favUrl = new URL(feedUrl);
         request(favUrl.origin, (err, resp, body) => {
           parseFavicon(body, {baseURI: favUrl.origin}).then(result => {
             if (result && result.length) {
