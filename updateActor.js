@@ -57,6 +57,7 @@ function signAndSend(message, name, domain, req, res, targetDomain, inbox) {
 function updateMessage(name, domain) {
   const guidCreate = crypto.randomBytes(16).toString('hex');
 
+  let result = db.prepare('select actor from accounts where name = ?').get(uri);
   let actor = JSON.parse(result.actor);
   if (actor.followers === undefined) {
     actor.followers = `https://${domain}/u/${username}/followers`;
