@@ -1,5 +1,5 @@
 const config = require('./config.json');
-const { DOMAIN, PRIVKEY_PATH, CERT_PATH, PORT_HTTP, PORT_HTTPS } = config;
+const { DOMAIN, doubanFeedUrl } = config;
 const Database = require('better-sqlite3');
 const db = new Database('bot-node.db'),
       Parser = require('rss-parser'),
@@ -47,14 +47,27 @@ return new Promise((resolve, reject) => {
 
       let oldItems = oldFeed.items;
       let newItems = feedData.items;
+      let difference = [];
 
-      // find the difference of the sets of guids (fall back to title or
-      // description since guid is not required by spec) in the old and new feeds
-      let oldGuidSet = new Set(oldItems.map(el => el.guid || el.title || el.description));
-      let newGuidSet = new Set(newItems.map(el => el.guid || el.title || el.description));
-      // find things in the new set that aren't in the old set
-      let difference = new Set( [...newGuidSet].filter(x => !oldGuidSet.has(x)));
-      difference = [...difference];
+      if (feed.feed.startsWith(doubanFeedUrl)) {
+        let oldGuids = oldItems.map(el => el.guid || el.title || el.description);
+        let newGuids = newItems.map(el => el.guid || el.title || el.description);
+        for(let i = 0; i < newGuids.length; i++) {
+            if(!oldGuids.includes(newGuids[i])) {
+                difference.push(newGuids[i]);
+            } else {
+                break;
+            }
+        }
+      } else {
+        // find the difference of the sets of guids (fall back to title or
+        // description since guid is not required by spec) in the old and new feeds
+        let oldGuidSet = new Set(oldItems.map(el => el.guid || el.title || el.description));
+        let newGuidSet = new Set(newItems.map(el => el.guid || el.title || el.description));
+        // find things in the new set that aren't in the old set
+        difference = new Set( [...newGuidSet].filter(x => !oldGuidSet.has(x)));
+        difference = [...difference];
+      }
       
       console.log('diff', feed.feed, difference.length, difference);
 
@@ -288,4 +301,3 @@ function sendCreateMessage(text, name, domain, req, res, item) {
     signAndSend(message, name, domain, req, res, targetDomain, inbox);
   }
 }
-
