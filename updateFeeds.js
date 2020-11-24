@@ -254,15 +254,6 @@ function createMessage(text, name, domain, item, follower, guidNote) {
     };
     out.object.attachment = attachment;
   }
-  else if (item.urls.length > 0) {
-    attachment = {
-      'type': 'Document',
-      'mediaType': 'image/png', // TODO: update the mediaType to match jpeg,gif,etc
-      'url': item.urls[0],
-      'name': null
-    };
-    out.object.attachment = attachment;
-  }
   else if (item.urls.length > 1) {
     attachment = [];
     let lengthFourMax = Math.min(item.urls.length, 4);
@@ -274,6 +265,15 @@ function createMessage(text, name, domain, item, follower, guidNote) {
         'name': null
       });
     }
+    out.object.attachment = attachment;
+  }
+  else if (item.urls.length > 0) {
+    attachment = {
+      'type': 'Document',
+      'mediaType': 'image/png', // TODO: update the mediaType to match jpeg,gif,etc
+      'url': item.urls[0],
+      'name': null
+    };
     out.object.attachment = attachment;
   }
 
