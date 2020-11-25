@@ -53,6 +53,7 @@ app.use('/.well-known/webfinger', cors(), routes.webfinger);
 app.use('/u', cors(), routes.user);
 app.use('/m', cors(), routes.message);
 app.use('/api/inbox', cors(), routes.inbox);
+app.use(express.static('public'));
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
