@@ -73,7 +73,7 @@ return new Promise((resolve, reject) => {
 function signAndSend(message, name, domain, req, res, targetDomain, inbox) {
   // get the private key
   console.log('sending to ', name, targetDomain, inbox);
-  let inboxFragment = inbox.replace('https://'+targetDomain,'');
+  let inboxFragment = inbox.replace('https://'+targetDomain,'').replace('http://'+ targetDomain,'');
   let result = db.prepare('select privkey from accounts where name = ?').get(`${name}@${domain}`);
   //console.log('got key', result === undefined, `${name}@${domain}`);
   if (result === undefined) {
