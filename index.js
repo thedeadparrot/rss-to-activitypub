@@ -48,6 +48,7 @@ app.options('/api', cors());
 app.use('/api', cors(), routes.api);
 app.use('/admin', express.static('public/admin'));
 app.use('/convert', express.static('public/convert'));
+app.use('/convert/douban', express.static('public/convert/douban'));
 app.use('/.well-known/webfinger', cors(), routes.webfinger);
 app.use('/u', cors(), routes.user);
 app.use('/m', cors(), routes.message);
