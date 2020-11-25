@@ -8,7 +8,7 @@ const express = require('express'),
 function signAndSend(message, name, domain, req, res, targetDomain) {
   // get the URI of the actor object and append 'inbox' to it
   let inbox = message.object.actor+'/inbox';
-  let inboxFragment = inbox.replace('https://'+targetDomain,'');
+  let inboxFragment = inbox.replace('https://'+targetDomain,'').replace('http://'+targetDomain,'');
   // get the private key
   let db = req.app.get('db');
   let result = db.prepare('select privkey from accounts where name = ?').get(`${name}@${domain}`);
