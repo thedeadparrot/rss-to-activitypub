@@ -71,7 +71,11 @@ router.get('/convert/douban', function (req, res) {
   let feed = `http://rsshub.0svc.com/douban/people/${feedid}/status/readable=true&showAuthorInTitle=false&showEmojiForRetweet=true`
   // reject if username is invalid
   if (username.match(/^[a-zA-Z0-9_]+$/) === null) {
-    return res.status(400).json('Invalid username! Only alphanumerics and underscore (_) allowed.');
+    return res.status(400).json('用户名无效。仅允许数字、字母和下划线。');
+  }
+  // reject if feedid is invalid
+  if (feedid.match(/^[0-9]+$/) === null){
+    return res.status(400).json('豆瓣用户id无效。请检查是否为数字以及数字是否正确。');
   }
   // check to see if feed exists
   let result = db.prepare('select * from feeds where feed = ? or username = ?').get(feed, username);
