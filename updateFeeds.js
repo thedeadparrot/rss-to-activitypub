@@ -230,7 +230,7 @@ function createMessage(text, name, domain, item, follower, guidNote) {
     'type': 'Create',
     'actor': `https://${domain}/u/${name}`,
 
-    'to': [ follower ],
+    'to': [`https://${domain}/u/${name}/followers`],
 
     'object': {
       'id': `https://${domain}/m/${guidNote}`,
@@ -239,7 +239,7 @@ function createMessage(text, name, domain, item, follower, guidNote) {
       'attributedTo': `https://${domain}/u/${name}`,
       'content': text,
       'link': item.link,
-      'cc': 'https://www.w3.org/ns/activitystreams#Public'
+      'cc': ['https://www.w3.org/ns/activitystreams#Public']
     }
   };
 
