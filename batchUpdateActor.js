@@ -103,11 +103,11 @@ function signAndSend(message, name, domain, req, res, targetDomain, inbox) {
         'Signature': header,
         'Digest': `SHA-256=${digest}`,
         'Content-Type': 'application/activity+json',
-        'Accept': 'application/activity+json'
+        //'Accept': 'application/activity+json'
       },
       method: 'POST',
-      json: true,
-      body: message
+      //json: true,
+      body: JSON.stringify(message),
     }, function (error, response, body){
       console.log('Response: ', response.body);
       console.log('statusCode:', response.statusCode);
