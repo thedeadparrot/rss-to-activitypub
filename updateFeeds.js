@@ -213,7 +213,9 @@ function signAndSend(message, name, domain, req, res, targetDomain, inbox) {
       //json: true,
       body: JSON.stringify(message),
     }, function (error, response, body){
-      console.log('Response: ', response.body);
+      if (response.body) {
+        console.log('Response: ', response.body);
+      }
       // console.log('Response header: ', response.headers);
       console.log('statusCode:', response.statusCode);
     });
