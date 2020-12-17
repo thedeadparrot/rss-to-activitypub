@@ -14,6 +14,7 @@ router.get('/:name', function (req, res) {
     name = `${name}@${domain}`;
     let result = db.prepare('select actor from accounts where name = ?').get(name);
     if (result === undefined) {
+      res.set('Content-Type', 'application/activity+json');
       return res.status(404).json(`No record found for ${name}.`);
     }
     else if (req.headers.accept && (req.headers.accept.includes('application/activity+json') || req.headers.accept.includes('application/json') || req.headers.accept.includes('application/json+ld'))) {
@@ -23,7 +24,8 @@ router.get('/:name', function (req, res) {
       if (tempActor.followers === undefined) {
         tempActor.followers = `https://${domain}/u/${username}/followers`;
       }
-      res.json(tempActor);
+      res.set('Content-Type', 'application/activity+json');
+      res.send(tempActor);
     }
     else {
       let actor = JSON.parse(result.actor);
@@ -74,7 +76,8 @@ router.get('/:name/followers', function (req, res) {
       },
       "@context":["https://www.w3.org/ns/activitystreams"]
     };
-    res.json(followersCollection);
+    res.set('Content-Type', 'application/activity+json');
+    res.send(followersCollection);
     //res.json(JSON.parse(result.actor));
   }
 });
