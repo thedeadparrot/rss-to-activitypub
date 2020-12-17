@@ -83,10 +83,10 @@ return new Promise((resolve, reject) => {
           item = transformContent(item);
 
           let message;
-          if(item.link.match('/twitter.com/')) {
+          if(item.link && item.link.match('/twitter.com/')) {
              message = `${item.content}`;
           }
-          else {
+          else if (item.link) {
              message = `<p><a href="${item.link}">${item.title}</a></p><p>${item.content || ''}</p>`;
           }
 
