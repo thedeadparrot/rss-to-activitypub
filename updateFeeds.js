@@ -98,6 +98,7 @@ return new Promise((resolve, reject) => {
 
         // update the DB with new contents
         let content = JSON.stringify(feedData);
+        db.prepare('INSERT INTO feedhistory(feed, username, content) SELECT * FROM feeds WHERE feed = ? AND username = ?').run(feed.feed, acct);
         db.prepare('insert or replace into feeds(feed, username, content) values(?, ?, ?)').run(feed.feed, acct, content);
         return resolve('done with ' + feedUrl)
       }
