@@ -5,3 +5,4 @@ config.json
 inbox.log
 test*.json
 *.sql
+*.bak
