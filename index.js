@@ -32,12 +32,12 @@ db.prepare('CREATE TABLE IF NOT EXISTS feeds (feed TEXT PRIMARY KEY, username TE
 // if there is no `messages` table in the DB, create an empty table
 db.prepare('CREATE TABLE IF NOT EXISTS messages (guid TEXT PRIMARY KEY, message TEXT)').run();
 
-db.prepare(`CREATE TABLE IF NOT EXISTS "feedhistory" (
-	"id" INTEGER PRIMARY KEY AUTOINCREMENT,
-	"t" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-	"feed"	TEXT,
-	"username"	TEXT,
-	"content"	TEXT
+db.prepare(`CREATE TABLE IF NOT EXISTS feedhistory (
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	t TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	feed	TEXT,
+	username	TEXT,
+	content	TEXT
 )`).run();
 
 app.set('db', db);

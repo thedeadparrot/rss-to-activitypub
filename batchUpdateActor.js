@@ -61,7 +61,7 @@ return new Promise((resolve, reject) => {
       let acct = feed.username;
       let domain = DOMAIN;
 
-      db.prepare("UPDATE accounts SET actor = json_insert(actor, '$.icon', json_object('type', 'Image', 'mediaType', 'image/jpeg', 'url', ?)) where name = ?").run(imageUrl, `${acct}@${domain}`);
+      db.prepare('UPDATE accounts SET actor = json_insert(actor, '$.icon', json_object('type', 'Image', 'mediaType', 'image/jpeg', 'url', ?)) where name = ?').run(imageUrl, `${acct}@${domain}`);
 
       sendUpdateMessage(acct, domain, null, null);
       return resolve('done with ' + feedUrl);
