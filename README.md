@@ -2,47 +2,21 @@
 
 This is a server that lets users convert any RSS feed to an ActivityPub actor that can be followed by users on ActivityPub-compliant social networks like Mastodon.
 
-This is forked from Daius's [rss-to-activitypub](https://github.com/dariusk/rss-to-activitypub), a simple Node/Express server that bridges between RSS and ActivityPub, and his [Express ActivityPub Server](https://github.com/dariusk/express-activitypub), a simple Node/Express server that supports a subset of ActivityPub.
+This is forked from [umonaca/rss-to-activitypub](https://github.com/umonaca/rss-to-activitypub) which is in turn forked from [dariusk/rss-to-activitypub](https://github.com/dariusk/rss-to-activitypub).
 
 ## Requirements
 
-This requires Node.js v10.10.0 or above.
+You need `beanstalkd` running. This is a simple and fast queueing system we use to manage polling RSS feeds. [Here are installation instructions](https://beanstalkd.github.io/download.html). On a production server you'll want to [install it as a background process](https://github.com/beanstalkd/beanstalkd/tree/master/adm).
 
-You also need `beanstalkd` running. This is a simple and fast queueing system we use to manage polling RSS feeds. [Here are installation instructions](https://beanstalkd.github.io/download.html). On a production server you'll want to [install it as a background process](https://github.com/beanstalkd/beanstalkd/tree/master/adm).
+## Deployment
 
-## Installation
+You can run this via Docker:
 
-Clone the repository, then `cd` into its root directory. Install dependencies:
-
-`npm i`
-
-Then copy `config.json.template` to `config.json`:
-
-`cp config.json.template config.json`
-
-Update your new `config.json` file:
-
-```js
-{
-  "DOMAIN": "mydomain.com",
-  "PORT_HTTP": "3000",
-  "PORT_HTTPS": "8443",
-  "PRIVKEY_PATH": "/path/to/your/ssl/privkey.pem",
-  "CERT_PATH": "/path/to/your/ssl/cert.pem"
-}
 ```
-
-* `DOMAIN`: your domain! this should be a discoverable domain of some kind like "example.com" or "rss.example.com"
-* `PORT_HTTP`: the http port that Express runs on
-* `PORT_HTTPS`: the https port that Express runs on
-* `PRIVKEY_PATH`: point this to your private key you got from Certbot or similar
-* `CERT_PATH`: point this to your cert you got from Certbot or similar
-
-Run the server!
-
-`node index.js`
-
-Go to `https://whateveryourdomainis.com:3000/convert` or whatever port you selected for HTTP, and enter an RSS feed and a username. If all goes well it will create a new ActivityPub user with instructions on how to view the user.
+cd rss-to-activitypub/
+docker build . -t rss-to-activitypub
+docker run -p 3000:3000 -v $(pwd):/db rss-to-activitypub
+```
 
 ## Sending out updates to followers
 
@@ -84,7 +58,3 @@ This table keeps track of all the data needed for the feeds. Columns:
 * `feed` `TEXT PRIMARY KEY`: the URI of the RSS feed
 * `username` `TEXT`: the username associated with the RSS feed
 * `content` `TEXT`: the most recent copy fetched of the RSS feed's contents
-
-## License
-
-Copyright (c) 2018 Darius Kazemi. Licensed under the MIT license.

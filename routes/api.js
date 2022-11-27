@@ -62,67 +62,6 @@ router.get('/convert', function (req, res) {
   }
 });
 
-// https://portal.0svc.com/api/convert/douban/?feedid=1234567&username=abc_mirror
-router.get('/convert/douban', function (req, res) {
-  let db = req.app.get('db');
-  console.log(req.query);
-  let username = req.query.username;
-  let feedid = req.query.feedid;
-  let feed = `http://rsshub.0svc.com/douban/people/${feedid}/status/readable=true&showAuthorInTitle=false&showEmojiForRetweet=true`
-  // reject if username is invalid
-  if (username.match(/^[a-zA-Z0-9_]+$/) === null) {
-    return res.status(400).json('用户名无效。仅允许数字、字母和下划线。');
-  }
-  // reject if feedid is invalid
-  if (feedid.match(/^[0-9]+$/) === null){
-    return res.status(400).json('豆瓣用户id无效。请检查是否为数字以及数字是否正确。');
-  }
-  // check to see if feed exists
-  let result = db.prepare('select * from feeds where feed = ? or username = ?').get(feed, username);
-  // see if we already have an entry for this feed
-  if (result) {
-    // return feed
-    res.status(200).json(result);
-  }
-  else if(feed && username) {
-    console.log('VALIDATING');
-    // validate the RSS
-    let parser = new Parser();
-    parser.parseURL(feed, function(err, feedData) {
-      if (err) {
-        if (err.message === 'Status code 400') {
-          err.message = `That doesn't look like a valid RSS feed. Check <a href="${feed}">the URL you provided</a> in a feed validator. You can <a href="https://validator.w3.org/feed/check.cgi?url=${feed}" target="_blank">click here</a> to pop up a test immediately.`
-        }
-        res.status(400).json({err: err.message});
-      }
-      else {
-        console.log(feedData.title);
-        console.log('end!!!!');
-        res.status(200).json(feedData);
-        let displayName = feedData.title;
-        let description = feedData.description;
-        let account = username;
-        // create new user
-        let db = req.app.get('db');
-        let domain = req.app.get('domain');
-        // create keypair
-        var pair = generateRSAKeypair();
-        getImage(feed, feedData, imageUrl => {
-          let actorRecord = createActor(account, domain, pair.public, displayName, imageUrl, description);
-          let webfingerRecord = createWebfinger(account, domain);
-          const apikey = crypto.randomBytes(16).toString('hex');
-          db.prepare('insert or replace into accounts(name, actor, apikey, pubkey, privkey, webfinger) values(?, ?, ?, ?, ?, ?)').run( `${account}@${domain}`, JSON.stringify(actorRecord), apikey, pair.public, pair.private, JSON.stringify(webfingerRecord));
-          let content = JSON.stringify(feedData);
-          db.prepare('insert or replace into feeds(feed, username, content) values(?, ?, ?)').run( feed, username, content);
-        });
-      }
-    });
-  }
-  else {
-    res.status(404).json({msg: 'unknown error'});
-  }
-});
-
 function getImage(feed, feedData, cb) {
   let imageUrl = null;
   // if image exists set image
