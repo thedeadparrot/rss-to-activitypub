@@ -5,7 +5,7 @@ RUN apt-get update && apt-get install -y beanstalkd python3 && \
 
 WORKDIR /app
 COPY package*.json ./
-RUN npm install -g node-gyp && npm ci
+RUN npm install -g node-gyp && npm install
 
 COPY . .
 RUN chown node:node /app
