@@ -1,0 +1,12 @@
+version: "3"
+services:
+  rss-to-activitypub:
+    build: .
+    container_name: rss-to-activitypub
+    environment:
+      - PORT=3000
+    volumes:
+      - ./db:/db
+    ports:
+      - 3000:3000
+    restart: unless-stopped
