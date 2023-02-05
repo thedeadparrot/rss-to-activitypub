@@ -23,6 +23,7 @@ You can run this via Docker:
 
 ```
 cd rss-to-activitypub/
+mkdir config db
 docker-compose build
 ```
 
