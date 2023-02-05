@@ -4,6 +4,7 @@
   "PORT_HTTPS": "8443",
   "PRIVKEY_PATH": "/path/to/your/ssl/privkey.pem",
   "CERT_PATH": "/path/to/your/ssl/cert.pem",
+  "DB_PATH": "/db/bot-node.db",
   "OAUTH": [
 	{
 	    "client_id": "abc123def456",

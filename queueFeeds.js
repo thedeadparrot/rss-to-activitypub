@@ -1,5 +1,7 @@
 const Database = require('better-sqlite3');
-const db = new Database(process.env.DB_PATH);
+const config = require('/config/config.json');
+const { DB_PATH } = config;
+const db = new Database(DB_PATH);
 const Jackd = require('jackd');
 const beanstalkd = new Jackd();
 

@@ -1,9 +1,9 @@
 const config = require('/config/config.json');
-const { DOMAIN, PRIVKEY_PATH, CERT_PATH, PORT_HTTP, PORT_HTTPS, OAUTH } = config;
+const { DB_PATH, DOMAIN, PRIVKEY_PATH, CERT_PATH, PORT_HTTP, PORT_HTTPS, OAUTH } = config;
 const express = require('express');
 const app = express();
 const Database = require('better-sqlite3');
-const db = new Database(process.env.DB_PATH);
+const db = new Database(DB_PATH);
 const routes = require('./routes'),
       bodyParser = require('body-parser'),
       cors = require('cors'),

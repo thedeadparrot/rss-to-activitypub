@@ -5,7 +5,6 @@ services:
     container_name: rss-to-activitypub
     environment:
       - PORT=3000
-      - DB_PATH=/db/bot-node.db
     volumes:
       - ./db:/db
       - ./config:/config

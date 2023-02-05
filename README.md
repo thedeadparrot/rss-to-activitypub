@@ -36,11 +36,12 @@ Update your new `config.json` file:
 ```js
 {
   "DOMAIN": "mydomain.com",
+  "DB_PATH": "/db/bot-node.db",
   "PORT_HTTP": "3000",
   "PORT_HTTPS": "8443",
   "PRIVKEY_PATH": "/path/to/your/ssl/privkey.pem",
   "CERT_PATH": "/path/to/your/ssl/cert.pem",
-  "OAUTH": {
+  "OAUTH": [{
     "client_id": "abc123def456",
     "client_secret": "zyx987wvu654",
     "redirect_uri": "https://rss.example.social/convert",
@@ -49,11 +50,12 @@ Update your new `config.json` file:
     "authorize_path": "/oauth/authorize",
     "token_path": "/oauth/token",
     "token_verification_path": "/some/path/to/verify/token"
-  }
+  }]
 }
 ```
 
 * `DOMAIN`: your domain! this should be a discoverable domain of some kind like "example.com" or "rss.example.com"
+* `DB_PATH`: the absolute path to the sqlite database. For docker, feel free to just use the one in the sample.
 * `PORT_HTTP`: the http port that Express runs on
 * `PORT_HTTPS`: the https port that Express runs on
 * `PRIVKEY_PATH`: point this to your private key you got from Certbot or similar

@@ -1,1 +1,1 @@
-* * * * * node bash /app/cron.sh
+* * * * * node /app/cron.sh > /tmp/cronjob.log 2>&1
