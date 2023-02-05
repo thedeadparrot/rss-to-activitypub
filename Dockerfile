@@ -1,6 +1,6 @@
 FROM node:18
 
-RUN apt-get update && apt-get install -y beanstalkd python3
+RUN apt-get update && apt-get install -y beanstalkd python3 cron
 WORKDIR /app
 COPY package*.json ./
 RUN npm install -g node-gyp && npm install
@@ -8,12 +8,12 @@ RUN npm install -g node-gyp && npm install
 COPY . .
 RUN chown node:node /app
 
-COPY config.json.template /config/config.json.template
+ADD crontab /etc/cron.d/schedule-feed-update
+
+RUN chmod 0644 /etc/cron.d/schedule-feed-update
+RUN crontab -u node /etc/cron.d/schedule-feed-update
+
 
 EXPOSE ${PORT}
 
-# Start beanstalk service
-CMD [ "service", "beanstalkd", "start" ]
-
-USER node
-CMD [ "npm", "run", "start" ]
+CMD [ "./startup.sh" ]
