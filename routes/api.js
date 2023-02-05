@@ -33,7 +33,7 @@ router.get('/request-token', cors(), (req, res) => {
       }
     });
   });
-  return res.status(401).json(body);
+  return res.status(401);
 });
 
 // if oauth is enabled, this function checks to see if we've been sent an access token and validates it with the server
