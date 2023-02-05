@@ -121,7 +121,7 @@ function getImage(feed, feedData, cb) {
   else {
     let favUrl = new URL(feed);
     request(favUrl.origin, (err, resp, body) => {
-      parseFavicon(body, {baseURI: favUrl.origin}).then(result => {
+      parseFavicon(body, {baseURI: favUrl.origin}).subscribe(result => {
         if (result && result.length) {
           return cb(result[0].url);
         }
