@@ -25,6 +25,7 @@ db.prepare(`CREATE TABLE IF NOT EXISTS feedhistory (
 )`).run();
 
 app.set('db', db);
+app.set('domain', DOMAIN);
 app.set('port', process.env.PORT);
 app.set('views', './views');
 app.set('view engine', 'pug');
