@@ -1,2 +1,1 @@
-* * * * * node bash node queueFeeds.js
-* * * * * node bash node updateFeeds.js
+* * * * * node bash /app/cron.sh
