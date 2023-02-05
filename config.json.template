@@ -4,14 +4,26 @@
   "PORT_HTTPS": "8443",
   "PRIVKEY_PATH": "/path/to/your/ssl/privkey.pem",
   "CERT_PATH": "/path/to/your/ssl/cert.pem",
-  "OAUTH": {
-    "client_id": "abc123def456",
-    "client_secret": "zyx987wvu654",
-    "redirect_uri": "https://rss.example.social/convert",
-    "domain": "example.social",
-    "domain_human": "Example Online Community",
-    "authorize_path": "/oauth/authorize",
-    "token_path": "/oauth/token",
-    "token_verification_path": "/some/path/to/verify/token"
-  }
+  "OAUTH": [
+	{
+	    "client_id": "abc123def456",
+	    "client_secret": "zyx987wvu654",
+	    "redirect_uri": "https://rss.example.social/convert",
+	    "domain": "example.social",
+	    "domain_human": "Example Online Community",
+	    "authorize_path": "/oauth/authorize",
+	    "token_path": "/oauth/token",
+	    "token_verification_path": "/some/path/to/verify/token"
+	}
+	{
+	    "client_id": "abc123def456",
+	    "client_secret": "zyx987wvu654",
+	    "redirect_uri": "https://rss.second-example.social/convert",
+	    "domain": "example.social",
+	    "domain_human": "Second Example Online Community",
+	    "authorize_path": "/oauth/authorize",
+	    "token_path": "/oauth/token",
+	    "token_verification_path": "/some/path/to/verify/token"
+	}
+  ]
 }
