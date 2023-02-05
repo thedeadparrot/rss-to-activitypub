@@ -9,9 +9,9 @@
     "cheerio": "^1.0.0-rc.12",
     "cors": "^2.8.5",
     "express": "^4.18.2",
+    "node-favicon": "1.0.0",
     "generate-rsa-keypair": "^0.2.1",
     "jackd": "^2.1.2",
-    "parse-favicon": "^5.0.4",
     "pug": "^3.0.2",
     "request": "^2.88.2",
     "rss-parser": "^3.12.0"

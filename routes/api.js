@@ -5,7 +5,7 @@ const express = require('express'),
       crypto = require('crypto'),
       request = require('request'),
       Parser = require('rss-parser'),
-      parseFavicon = require('parse-favicon').parseFavicon,
+      favicon = require('node-favicon'),
       generateRSAKeypair = require('generate-rsa-keypair'),
       oauth_domains = require('/config/config.json').OAUTH;
 
@@ -52,7 +52,6 @@ function isAuthenticated(req, res, next) {
         }
       });
     });
-    res.redirect('/');
   }
   else {
     return next();
@@ -119,16 +118,13 @@ function getImage(feed, feedData, cb) {
   }
   // otherwise parse the HTML for the favicon
   else {
-    let favUrl = new URL(feed);
-    request(favUrl.origin, (err, resp, body) => {
-      parseFavicon(body, {baseURI: favUrl.origin}).subscribe(result => {
-        if (result && result.length) {
-          return cb(result[0].url);
-        }
-        else {
-          return cb(null);
-        }
-      });
+    favicon(feed, (err, result) => {
+          if (result) {
+            return cb(result);
+          }
+          else {
+            return cb(null);
+          }
     });
   }
 }
