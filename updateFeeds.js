@@ -1,7 +1,7 @@
-const config = require('./config.json');
+const config = require('/config/config.json');
 const { DOMAIN, doubanFeedUrl } = config;
 const Database = require('better-sqlite3');
-const db = new Database('bot-node.db'),
+const db = new Database(process.env.DB_PATH),
       Parser = require('rss-parser'),
       request = require('request'),
       crypto = require('crypto'),

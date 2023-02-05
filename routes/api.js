@@ -7,7 +7,7 @@ const express = require('express'),
       Parser = require('rss-parser'),
       parseFavicon = require('parse-favicon').parseFavicon,
       generateRSAKeypair = require('generate-rsa-keypair'),
-      oauth = require('../config.json').OAUTH;
+      oauth = require('/config/config.json').OAUTH;
 
 router.get('/request-token', cors(), (req, res) => {
   if (!oauth) {
