@@ -78,6 +78,8 @@ Go to `https://whateveryourdomainis.com:3000/convert` or whatever port you selec
 
 There is also a file called `queueFeeds.js` that needs to be run on a cron job or similar scheduler. I like to run mine once a minute. It queries every RSS feed in the database to see if there has been a change to the feed. If there is a new post, it sends out the new post to everyone subscribed to its corresponding ActivityPub Actor.
 
+The docker deployment uses the `crontab` file to define how frequently this is run. Feel free to modify this file and then rebuild.
+
 ## Running with OAuth
 
 OAuth is unfortunately a bit underspecified so there are a lot of funky implementations out there. Here I will include an example of using a Mastodon server as the OAuth provider. This is how I have my RSS service set up: I run friend.camp as my Mastodon server, and I use my admin powers on friend.camp to register rss.friend.camp as an application. The steps for this, for Mastodon, are:

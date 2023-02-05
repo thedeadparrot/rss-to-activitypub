@@ -18,7 +18,7 @@ async function processQueue() {
       const { id, payload } = await beanstalkd.reserve()
       /* ... process job here ... */
       await beanstalkd.delete(id)
-      await doFeed(payload)
+      await doFeed(payload.toString())
     } catch (err) {
       // Log error somehow
       console.error(err)
