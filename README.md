@@ -1,3 +1,8 @@
+
+# WARNING
+
+- This is cobbled together from spare parts, and I'm still trying to figure out how to get it to work, sorry.
+
 # RSS to ActivityPub Converter
 
 This is a server that lets users convert any RSS feed to an ActivityPub actor that can be followed by users on ActivityPub-compliant social networks like Mastodon.
@@ -18,19 +23,12 @@ You can run this via Docker:
 
 ```
 cd rss-to-activitypub/
-docker build . -t rss-to-activitypub
-docker run -p 3000:3000 -v $(pwd):/db rss-to-activitypub
+docker-compose build
 ```
 
-## Installation
+Then copy `config.json.template` to `config/config.json`:
 
-Clone the repository, then `cd` into its root directory. Install dependencies:
-
-`npm i`
-
-Then copy `config.json.template` to `config.json`:
-
-`cp config.json.template config.json`
+`cp config.json.template config/config.json`
 
 Update your new `config.json` file:
 
@@ -71,7 +69,7 @@ Update your new `config.json` file:
 
 Run the server!
 
-`node index.js`
+`docker-compose up -d`
 
 Go to `https://whateveryourdomainis.com:3000/convert` or whatever port you selected for HTTP, and enter an RSS feed and a username. If all goes well it will create a new ActivityPub user with instructions on how to view the user.
 
@@ -111,7 +109,7 @@ Then make sure to manually run `updateFeed.js` when the feed changes. I recommen
 This server uses a SQLite database stored in the file `bot-node.db` to keep track of all the data. To connect directly to the database for debugging, from the root directory of the project, run:
 
 ```bash
-sqlite3 bot-node.db
+sqlite3 db/bot-node.db
 ```
 
 There are two tables in the database: `accounts` and `feeds`.
