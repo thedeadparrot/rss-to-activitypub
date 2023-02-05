@@ -10,6 +10,8 @@ RUN npm install -g node-gyp && npm install
 COPY . .
 RUN chown node:node /app
 
+COPY config.json.template /config/config.json.template
+
 EXPOSE ${PORT}
 
 USER node
